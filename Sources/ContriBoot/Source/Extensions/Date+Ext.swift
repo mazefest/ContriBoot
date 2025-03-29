@@ -227,9 +227,9 @@ extension Date {
      sunday. 2 -> **WRFSS (**1,2,3,4,5) and 2 -> ***WRFS (***1,2,3,4). This is mainly used for
      drawing calendars
      **/
-    func monthStartOffset() -> Int {
+    func monthStartOffset(startOfWeek: DayOfWeek = .monday) -> Int {
         let date = Date.firstDateOfMonth(of: self)
-        return DayOfWeek.create(from: date).offSet
+        return DayOfWeek.create(from: date).offSet(start: startOfWeek)
     }
     
     /*
@@ -237,12 +237,16 @@ extension Date {
      and then returns the `inverse` of how many days are in the last week.
      ex: if the last date of the month is -> `Mar 31, 2023 at 11:59 PM` a `Friday`
      if the week begins on `monday` it will return `2` and if the week starts on
-     sunday it will return a `1`. 2 -> MTWRF** (28,29,30,31,*, *) and 2 -> SMTWRFS* (27,28,29,30,31,*).
+     sunday it will return a `1`. 2 -> MTWRF** (28,29,30,31,*, *) and 1 -> SMTWRFS* (27,28,29,30,31,*).
      This is mainly used for drawing calendars
      **/
-    func monthEndOffset() -> Int {
+    func monthEndOffset(startOfWeek: DayOfWeek = .monday) -> Int {
         let date = Date.lastDateOfMonth(of: self)
-        let index = DayOfWeek.create(from: date).offSet
+        print("----(\(startOfWeek.title)")
+        print(DayOfWeek.create(from: date).title)
+        print("\(DayOfWeek.create(from: date).offSet(start: startOfWeek))")
+        let index = DayOfWeek.create(from: date).offSet(start: startOfWeek)
+        print("end of month; \(index)")
         return 6 - index
     }
     
@@ -411,26 +415,12 @@ extension Date {
         return calendar.date(byAdding: .day, value: index, to: startOfYear)
     }
     
-    func beginningOffsetOfCurrentYear() -> Int {
-        let calendar = Calendar.current
-        guard let startOfYear = calendar.date(from: DateComponents(year: calendar.component(.year, from: self), month: 1, day: 1)) else {
-            return 0
-        }
-        let weekday = calendar.component(.weekday, from: startOfYear)
-        // Adjusting as Sunday = 1, Monday = 2, ..., Saturday = 7
-        return weekday == 1 ? 6 : weekday - 1
+    func beginningOffsetOfCurrentYear(startOfWeek: DayOfWeek = .monday) -> Int {
+        return self.startOfYear().monthStartOffset(startOfWeek: startOfWeek)
     }
     
-    func endOffsetOfCurrentYear() -> Int {
-        let calendar = Calendar.current
-        let year = calendar.component(.year, from: self)
-        guard let endOfYear = calendar.date(from: DateComponents(year: year, month: 12, day: 31)) else {
-            return 0
-        }
-        let weekday = calendar.component(.weekday, from: endOfYear)
-        // Since we want Wednesday to be 3, and Saturday to be 0,
-        // we calculate the offset directly from the weekday.
-        return (weekday + 1) % 6
+    func endOffsetOfCurrentYear(startOfWeek: DayOfWeek = .monday) -> Int {
+        return self.endOfYear().monthEndOffset(startOfWeek: startOfWeek)
     }
     
     func weeksInYear() -> Int {
@@ -449,13 +439,18 @@ extension Date {
 // For testing
 extension Date {
     static func generateDates(in range: ClosedRange<Date>, count: Int = 250) -> [Date] {
-        guard count > 1 else { return [range.lowerBound] }
-
+        guard count > 0 else { return [] }
+        
         let totalInterval = range.upperBound.timeIntervalSince(range.lowerBound)
-        let step = totalInterval / Double(count - 1)
-
-        return (0..<count).compactMap { i in
-            Calendar.current.date(byAdding: .second, value: Int(Double(i) * step), to: range.lowerBound)
+        var dates: [Date] = []
+        
+        for _ in 0..<count {
+            let randomOffset = TimeInterval.random(in: 0..<totalInterval)
+            if let randomDate = Calendar.current.date(byAdding: .second, value: Int(randomOffset), to: range.lowerBound) {
+                dates.append(randomDate)
+            }
         }
+        
+        return dates.sorted()
     }
 }

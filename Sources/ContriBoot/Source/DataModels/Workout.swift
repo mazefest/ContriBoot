@@ -13,7 +13,9 @@ struct Workout: Contributable {
 
 extension Workout {
     static func generateTestWorkouts() -> [Workout] {
-        let dates = Date.generateDates(in: Date().startOfYear()...Date().endOfYear())
+        var dates = Date.generateDates(in: Date().startOfYear()...Date().endOfYear())
+        dates.append(contentsOf: Date.generateDates(in: Date().startOfYear()...Date().endOfYear()))
+        dates.append(contentsOf: Date.generateDates(in: Date().startOfYear()...Date().endOfYear()))
         return dates.compactMap { Workout(date: $0)}
     }
 }

@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct StackedDayOfWeekIndicators: View {
+    var startOfWeek: DayOfWeek
+    
     var body: some View {
         VStack {
-            ForEach(DayOfWeek.alldays(start: .sunday)) { dayOfWeek in
+            ForEach(DayOfWeek.alldays(start: startOfWeek)) { dayOfWeek in
                 Text(dayOfWeek.letter)
                     .styledText(color: .gray)
                     .opacity(0.8)

@@ -36,17 +36,11 @@ public enum DayOfWeek: String, Identifiable {
         }
     }
     
-    public var offSet: Int {
-        // if start of week is monday, else it would be same sequence but start from sunday
-        switch self {
-        case .monday: 0
-        case .tuesday: 1
-        case .wednesday: 2
-        case .thursday: 3
-        case .friday: 4
-        case .saturday: 5
-        case .sunday: 6
+    public func offSet(start: Self) -> Int {
+        guard let index = Self.alldays(start: start).firstIndex(where: { $0 == self }) else {
+            fatalError("DayOfWeek offset calculation failed.")
         }
+        return index
     }
     
     public static var allCases: [Self] {

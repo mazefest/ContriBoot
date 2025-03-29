@@ -14,7 +14,7 @@ struct StyledText: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.system(textStyle, design: .rounded, weight: .semibold))
-            .foregroundStyle(.gray)
+            .foregroundStyle(color)
     }
 }
 

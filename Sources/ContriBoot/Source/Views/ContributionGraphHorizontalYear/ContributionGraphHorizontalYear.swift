@@ -8,22 +8,42 @@
 import SwiftUI
 
 struct ContributionGraphHorizontalYear: View {
+    var year: ContribootYear
+    var startOfWeek: DayOfWeek
     var contributions: [Int: [Contributable]] = [:]
-    var color: Color
     
-    init(items: [Contributable], color: Color) {
-        self.color = color
+    // for drawing items
+    let daysInYear: Int
+    let beginningOffsetOfCurrentYear: Int
+    let endOffsetOfCurrentYear: Int
+    
+    // for contribute
+    var contributeViewStyle: ContributeViewStyle = BinaryContributeStyle()
+    var highestCount: Int = 0
+    
+    init(
+        items: [Contributable],
+        year: ContribootYear = .currentYear,
+        startOfWeek: DayOfWeek = .sunday
+    ) {
+        self.year = year
+        self.startOfWeek = startOfWeek
+        self.daysInYear = year.daysInYear
+        self.beginningOffsetOfCurrentYear = year.date.beginningOffsetOfCurrentYear(startOfWeek: startOfWeek)
+        self.endOffsetOfCurrentYear = year.date.endOffsetOfCurrentYear(startOfWeek: startOfWeek)
         
         items.forEach {
             let index = $0.date.indexOfDayInYear()
             contributions[index, default: []].append($0)
         }
+        
+        highestCount = contributions.values.max(by: { $0.count < $1.count })?.count ?? 0
     }
     
     var body: some View {
         VStack {
             HStack(alignment: .bottom) {
-                StackedDayOfWeekIndicators()
+                StackedDayOfWeekIndicators(startOfWeek: startOfWeek)
                 
                 ScrollViewReader(content: { proxy in
                     VStack {
@@ -41,19 +61,17 @@ struct ContributionGraphHorizontalYear: View {
                                 
                                 HStack {
                                     LazyHGrid(rows: Array(repeating: GridItem(.fixed(20.0)), count: 7), content: {
-                                        ForEach(0..<Date().beginningOffsetOfCurrentYear()) { i in
-                                            ContributionSquareView(color: .gray, opacity: 0.13)
-                                                .frame(width: 20.0, height: 20.0, alignment: .center)
+                                        ForEach(0..<beginningOffsetOfCurrentYear, id: \.self) { i in
+                                            ContributionSquareView(color: .defaultFillerColor)
                                         }
                                         
-                                        ForEach(0..<Date().daysInYear()) { index in
+                                        ForEach(0..<daysInYear, id: \.self) { index in
                                             contributionSquare(index: index)
                                                 .id(index)
                                         }
                                         
-                                        ForEach(0..<Date().endOffsetOfCurrentYear()) { i in
-                                            ContributionSquareView(color: .gray, opacity: 0.13)
-                                                .frame(width: 20.0, height: 20.0, alignment: .center)
+                                        ForEach(0..<endOffsetOfCurrentYear, id: \.self) { i in
+                                            ContributionSquareView(color: .defaultFillerColor)
                                         }
                                     })
                                 }
@@ -70,20 +88,80 @@ struct ContributionGraphHorizontalYear: View {
         }
     }
     
+    
     @ViewBuilder
     func contributionSquare(index: Int) -> some View {
-        ContributionSquareView(contributions: contributions[index] ?? [], color: .blue)
+        if let style = self.contributeViewStyle as? BinaryContributeStyle {
+            AnyView(ContributionSquareView(
+                color: style.color(for: (contributions[index] ?? []).count),
+                cornerRadius: style.cornerRadius
+            ))
+        } else if let style = self.contributeViewStyle as? GradientContributeStyle {
+            AnyView(ContributionSquareView(
+                color: style.color(for: (contributions[index] ?? []).count, highestCount: highestCount),
+                cornerRadius: style.cornerRadius
+            ))
+        } else if let style = self.contributeViewStyle as? CustomContributeStyle {
+            AnyView(style.customView(contributions[index] ?? []))
+        }
     }
 }
 
+
+extension ContributionGraphHorizontalYear {
+    func contributeStyle(_ contributionStyle: ContributeViewStyle) -> ContributionGraphHorizontalYear {
+        var copy = self
+        copy.contributeViewStyle = contributionStyle
+        return copy
+    }
+}
+
+
 #Preview {
     List {
-        Section {
-            ContributionGraphHorizontalYear(items: Workout.generateTestWorkouts(), color: .green)
+        Section("Gradient") {
+            ContributionGraphHorizontalYear(items: Workout.generateTestWorkouts())
+                .contributeStyle(GradientContributeStyle())
         }
         
-        Section {
-            ContributionGraph(dates: Date.generateDates(in: Date().startOfYear()...Date().endOfYear()), color: .pink)
+        Section("Gradient: Blue") {
+            ContributionGraphHorizontalYear(items: Workout.generateTestWorkouts())
+                .contributeStyle(GradientContributeStyle(color: .blue))
+        }
+            
+        Section("Gradient: Pink") {
+            ContributionGraphHorizontalYear(items: Workout.generateTestWorkouts())
+                .contributeStyle(GradientContributeStyle(color: .pink))
+        }
+        
+        Section("Binary") {
+            ContributionGraphHorizontalYear(items: Workout.generateTestWorkouts())
+                .contributeStyle(BinaryContributeStyle())
+        }
+            
+        Section("Binary: Blue") {
+            ContributionGraphHorizontalYear(items: Workout.generateTestWorkouts())
+                .contributeStyle(BinaryContributeStyle(color: .blue))
+        }
+        
+        Section("Binary: Pink") {
+            ContributionGraphHorizontalYear(items: Workout.generateTestWorkouts())
+                .contributeStyle(BinaryContributeStyle(color: .pink))
+        }
+
+        Section("Custom") {
+            ContributionGraphHorizontalYear(items: Workout.generateTestWorkouts())
+                .contributeStyle(CustomContributeStyle({ contributes in
+                    Color.black
+                        .cornerRadius(3.0)
+                        .overlay {
+                            Text("\(contributes.count)")
+                                .styledText(color: .white)
+                                .foregroundStyle(Color.white)
+                        }
+                        .aspectRatio(contentMode: .fit)
+                }))
         }
     }
 }
+
