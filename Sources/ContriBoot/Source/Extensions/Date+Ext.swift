@@ -242,11 +242,7 @@ extension Date {
      **/
     func monthEndOffset(startOfWeek: DayOfWeek = .monday) -> Int {
         let date = Date.lastDateOfMonth(of: self)
-        print("----(\(startOfWeek.title)")
-        print(DayOfWeek.create(from: date).title)
-        print("\(DayOfWeek.create(from: date).offSet(start: startOfWeek))")
         let index = DayOfWeek.create(from: date).offSet(start: startOfWeek)
-        print("end of month; \(index)")
         return 6 - index
     }
     

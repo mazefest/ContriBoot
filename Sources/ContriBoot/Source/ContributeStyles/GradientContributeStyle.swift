@@ -21,12 +21,18 @@ import SwiftUI
  - Method:
    - `color(for:highestCount:)`: Returns a color with an opacity proportional to the count's intensity.
  */
-struct GradientContributeStyle: ContributeViewStyle {
-    var color: Color = .green
-    var absentColor: Color = .gray.opacity(0.33)
-    var cornerRadius: CGFloat = 3.0
+public struct GradientContributeStyle: ContributeViewStyle {
+    public var color: Color
+    public var absentColor: Color
+    public var cornerRadius: CGFloat
     
-    func color(for count: Int, highestCount: Int) -> Color {
+    public init(color: Color = .green, absentColor: Color = .gray.opacity(0.33), cornerRadius: CGFloat = 3.0) {
+        self.color = color
+        self.absentColor = absentColor
+        self.cornerRadius = cornerRadius
+    }
+    
+    public func color(for count: Int, highestCount: Int) -> Color {
         guard count > 0 else { return absentColor }
         let percentage = Double(count) / Double(highestCount)
         let opacity = 0.1 + (0.9 * percentage)

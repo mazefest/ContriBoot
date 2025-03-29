@@ -7,4 +7,4 @@
 
 import Foundation
 
-protocol ContributeViewStyle { }
+public protocol ContributeViewStyle { }

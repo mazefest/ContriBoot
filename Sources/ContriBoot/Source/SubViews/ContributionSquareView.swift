@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct ContributionSquareView: View {
-    var color: Color = .green
-    var dimensions: (width: Double, height: Double) = (20.0, 20.0)
-    var cornerRadius: CGFloat = 3.0
+public struct ContributionSquareView: View {
+    public var color: Color = .green
+    public var dimensions: (width: Double, height: Double) = (20.0, 20.0)
+    public var cornerRadius: CGFloat = 3.0
     
-    init(
+    public init(
         color: Color,
         dimensions: (width: Double, height: Double) = (20.0, 20.0),
         cornerRadius: CGFloat = 3.0
@@ -22,7 +22,7 @@ struct ContributionSquareView: View {
         self.cornerRadius = cornerRadius
     }
 
-    var body: some View {
+    public var body: some View {
         color
             .frame(width: dimensions.width, height: dimensions.height, alignment: .center)
             .cornerRadius(cornerRadius)

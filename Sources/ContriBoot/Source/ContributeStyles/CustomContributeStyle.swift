@@ -20,10 +20,10 @@ import SwiftUI
  - Usage:
    Use this style when you need complete control over the appearance of the contribution view.
  */
-struct CustomContributeStyle: ContributeViewStyle {
-    var customView : ([Contributable]) -> any View
+public struct CustomContributeStyle: ContributeViewStyle {
+    public var customView : ([Contributable]) -> any View
     
-    init(_ customView: @escaping ([Contributable]) -> any View) {
+    public init(_ customView: @escaping ([Contributable]) -> any View) {
         self.customView = customView
     }
 }

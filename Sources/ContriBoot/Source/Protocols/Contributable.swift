@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol Contributable {
+public protocol Contributable {
     var date: Date { get set }
 }

@@ -21,3 +21,11 @@ struct StackedDayOfWeekIndicators: View {
         }
     }
 }
+
+#Preview {
+    HStack {
+        ForEach(DayOfWeek.alldays(start: .monday)) { startOfWeek in
+            StackedDayOfWeekIndicators(startOfWeek: startOfWeek)
+        }
+    }
+}

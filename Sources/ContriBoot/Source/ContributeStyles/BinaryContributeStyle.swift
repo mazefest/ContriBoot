@@ -21,12 +21,18 @@ import SwiftUI
  - Method:
    - `color(for:)`: Returns the appropriate color based on the given count.
  */
-struct BinaryContributeStyle: ContributeViewStyle {
-    var color: Color = .green
-    var absentColor: Color = .gray.opacity(0.33)
-    var cornerRadius: CGFloat = 3.0
+public struct BinaryContributeStyle: ContributeViewStyle {
+    public var color: Color
+    public var absentColor: Color
+    public var cornerRadius: CGFloat
+    
+    public init(color: Color = .green, absentColor: Color = .gray.opacity(0.33), cornerRadius: CGFloat = 3.0) {
+        self.color = color
+        self.absentColor = absentColor
+        self.cornerRadius = cornerRadius
+    }
 
-    func color(for count: Int) -> Color {
+    public func color(for count: Int) -> Color {
         count > 0 ? self.color : self.absentColor
     }
 }

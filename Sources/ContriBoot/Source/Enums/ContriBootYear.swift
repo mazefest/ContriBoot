@@ -7,24 +7,24 @@
 
 import SwiftUI
 
-enum ContribootYear {
+public enum ContriBootYear {
     case year(Int)
     case currentYear
     
-    var yearValue: Int {
+    public var yearValue: Int {
         return switch self {
         case .year(let value): value
         case .currentYear: Calendar.current.component(.year, from: Date())
         }
     }
     
-    var date: Date {
+    public var date: Date {
         var components = DateComponents()
         components.year = self.yearValue
         return Calendar.current.date(from: components)!
     }
     
-    var daysInYear: Int {
+    public var daysInYear: Int {
         date.daysInYear()
     }
 }
