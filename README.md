@@ -1,7 +1,7 @@
 
-<p>
+<p align="center">
 <img src="ReadMeResources/ReadME-app_banner.png" width="400" alt="">
-<\p>
+</p>
 
 # ContriBoot
 Contriboot is a contribution graph that us programmers all well know and love. Quickly and easily spawn contributions graphs of your like wherever you want in your apps. I've added a lot of customizability so make sure to check out the test app if you want to see examples of how to use and configure in your app. [Access Test App](https://github.com/mazefest/ContriBootExampleApp)
@@ -26,11 +26,11 @@ Contriboot is a contribution graph that us programmers all well know and love. Q
 
 <img src="ReadMeResources/ReadMe-adding_package_1.png" width="400" alt="">
 
-2. In the searchbar paste the github url `(https://github.com/mazefest/ContriBoot)](https://github.com/mazefest/ContriBootExampleApp)` and select `Add Package`.
+2. In the searchbar paste the github url `(https://github.com/mazefest/ContriBoot)](https://github.com/mazefest/ContriBootExampleApp)` and select `Copy Dependency`.
    
 <img src="ReadMeResources/ReadMe-adding_package_2.png" width="400" alt="">
 
-Now you can import ContriBoot and use the library where ever you like.
+Now you can import ContriBoot and use the library whereever you like.
 
 # Integration
 
@@ -44,7 +44,7 @@ import ContriBoot
 
 ### 2. Setup Your Data
 
-First thing we are going to need to do is make your data models able to work with `ContriBoot` do this by making your model conform to `Contributable`.
+The first step is to update your data models to work with `ContriBoot` by making them conform to the `Contributable` protocol. The only required parameter is a `date: Date` var.
 
 ```swift
 struct YourDataModel: Contributable {
@@ -55,18 +55,20 @@ var date: Date // <-- needed for coforming to Contributable
 Now your data can be used with `ContriBoot`
 
 ## 3. Making the Graph
-Now we just need to pass in your data
+Now we just need to pass in your data into the `ContriBootYearGraph`.
+
 ```swift
 List {
   ContriBootYearGraph(items: [YourDataModel])
 }
 ```
+
 This will give you the default Contribution graph, as shown below.
 
 <img src="ReadMeResources/ReadMe-default_contribution_graph.png" width="200" alt="">
 
 # Different Stlyes
-Now you can configure the graph to look anway you like. There are currently 3 available styles. You can modify the `ContriBootYearGraph` by modifying it with the `.style(_ ContributeStyle)` function.
+Now you can configure the graph to look anyway you like. There are currently 3 available styles. You can apply the styles to the `ContriBootYearGraph` by modifying it with the `.style(_ ContributeStyle)` function.
 
 ## BinaryContributeStyle
 Contribution colors will be colored if there is more than one contirbution for that specific date. You can also configure
