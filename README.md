@@ -1,5 +1,5 @@
 # ContriBoot
-Contriboot is a contribution graph that us programmers all well know and love. Quickly and easily spawn contributions graphs of your like wherever you want in your apps. I've added a lot of customizability so make sure to check out the test app if you want to see examples of how to use and configure in your app. [Access Test App](https://github.com/mazefest/MooCal/wiki/Accessing-the-Test-App)
+Contriboot is a contribution graph that us programmers all well know and love. Quickly and easily spawn contributions graphs of your like wherever you want in your apps. I've added a lot of customizability so make sure to check out the test app if you want to see examples of how to use and configure in your app. [Access Test App](https://github.com/mazefest/ContriBootExampleApp)
 
 <p align="center">
   <img src="ReadMeResources/ReadMe-main_example.gif" width="200" style="margin: 0 10px;" alt="">
@@ -21,7 +21,7 @@ Contriboot is a contribution graph that us programmers all well know and love. Q
 
 <img src="ReadMeResources/ReadMe-adding_package_1.png" width="400" alt="">
 
-2. In the searchbar paste the github url `[https://github.com/mazefest/MooCal](https://github.com/mazefest/ContriBoot)` and select `Add Package`.
+2. In the searchbar paste the github url `(https://github.com/mazefest/ContriBoot)](https://github.com/mazefest/ContriBootExampleApp)` and select `Add Package`.
    
 <img src="ReadMeResources/ReadMe-adding_package_2.png" width="400" alt="">
 
@@ -128,3 +128,6 @@ Section {
 <img src="ReadMeResources/ReadMe-custom_example.png" width="200" alt="">
 
 You can also go crazy with it, as seen above.
+
+### Example App
+For other example of configuring the conrtibution graph in an actual app check out the test app. [HERE](https://github.com/mazefest/ContriBootExampleApp)
