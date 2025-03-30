@@ -2,6 +2,7 @@
 Contriboot is a contribution graph that us programmers all well know and love. Quickly and easily spawn contributions graphs of your like wherever you want in your apps. I've added a lot of customizability so make sure to check out the test app if you want to see examples of how to use and configure in your app. [Access Test App](https://github.com/mazefest/MooCal/wiki/Accessing-the-Test-App)
 
 <p align="center">
+  <img src="ReadMeResources/ReadMe-main_example.gif" width="200" style="margin: 0 10px;" alt="">
   <img src="ReadMeResources/ReadMe-main_3.png" width="200" style="margin: 0 10px;" alt="">
   <img src="ReadMeResources/ReadMe-main_2.png" width="200" style="margin: 0 10px;" alt="">
   <img src="ReadMeResources/ReadMe-main_1.png" width="200" style="margin: 0 10px;" alt="">
