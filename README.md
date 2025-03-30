@@ -1,8 +1,11 @@
-
 # ContriBoot
-Contriboot is a contribution graph that us programmers all well know and love. Quickly and easily spawn contributions graphs of your like wherever you want in your apps. I've added a lot of customizability so make sure to check out the test app if you want to see examples of how to use and configure in your app.
+Contriboot is a contribution graph that us programmers all well know and love. Quickly and easily spawn contributions graphs of your like wherever you want in your apps. I've added a lot of customizability so make sure to check out the test app if you want to see examples of how to use and configure in your app. [Access Test App](https://github.com/mazefest/MooCal/wiki/Accessing-the-Test-App)
 
-[Access Test App](https://github.com/mazefest/MooCal/wiki/Accessing-the-Test-App)
+<p align="center">
+  <img src="ReadMeResources/ReadMe-main_3.png" width="200" style="margin: 0 10px;" alt="">
+  <img src="ReadMeResources/ReadMe-main_2.png" width="200" style="margin: 0 10px;" alt="">
+  <img src="ReadMeResources/ReadMe-main_1.png" width="200" style="margin: 0 10px;" alt="">
+</p>
 
 # Requirements
 
@@ -79,6 +82,8 @@ List {
 }
 ```
 
+<img src="ReadMeResources/ReadMe-binary_example.png" width="200" alt="">
+
 ## GradientContributeStyle
 Contibution will be colored with an opacity value based off the max contirbution count in the year.
 `GradientContributeStyle(color: Color, absentColor: Color, cornerRadius: Double)`
@@ -98,6 +103,7 @@ List {
    }
 }
 ```
+<img src="ReadMeResources/ReadMe-gradient_example.png" width="200" alt="">
 
 ## CustomContributeStyle
 You are in control, you have to do all the work now.
@@ -118,3 +124,6 @@ Section {
        }))
 }
 ```
+<img src="ReadMeResources/ReadMe-custom_example.png" width="200" alt="">
+
+You can also go crazy with it, as seen above.
