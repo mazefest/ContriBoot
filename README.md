@@ -4,7 +4,7 @@
 </p>
 
 # ContriBoot
-Contriboot is a contribution graph that us programmers all well know and love. Quickly and easily spawn contributions graphs of your like wherever you want in your apps. I've added a lot of customizability so make sure to check out the test app if you want to see examples of how to use and configure in your app. [Access Test App](https://github.com/mazefest/ContriBootExampleApp)
+ContriBoot brings the classic contribution graph we all know and love into your app with ease. You can drop one in wherever you need it, and there’s plenty of flexibility to make it your own. If you’re curious about how to use or tweak it, the test app has a bunch of examples to check out. [Access Test App](https://github.com/mazefest/ContriBootExampleApp)
 
 <p align="center">
   <img src="ReadMeResources/ReadMe-main_example.gif" width="200" style="margin: 0 10px;" alt="">
